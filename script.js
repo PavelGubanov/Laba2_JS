@@ -76,3 +76,26 @@ function addRowInCarTable () {
         alert('Ошибка! Необходимо все поля заполнить корректными значениями!');
     }
 }
+
+carTable.addEventListener('click', (e) => {
+
+    if (e.target.tagName === 'TH') {
+        let currentIndex = e.target.cellIndex;
+        sortCarTable(currentIndex, e.target.getAttribute('data-type'), selectedColumn === currentIndex);
+        if (selectedColumn === currentIndex){
+            selectedColumn = -1;
+        }
+        else {
+            selectedColumn = currentIndex;
+        }
+    }
+    if (e.target.tagName === 'IMG') {
+        let rowIndex = e.target.closest('TR').rowIndex;
+        carTable.deleteRow(rowIndex);
+    }
+});
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    addRowInCarTable();
+});
